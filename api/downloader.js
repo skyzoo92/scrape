@@ -622,50 +622,6 @@ const mfdl = async (url) => {
   }
 }
 
-const fbPhoto = async (url) => {
-   try {
-    async function getNonce() {
-      const { data: nonce } = await axios.get(
-        'https://thefdownloader.com/facebook-photo-downloader/',
-      )
-      const _ = cheerio.load(nonce)
-      const skripKontent = _('#hmd-facebook-downloader-js-extra').html()
-      const match = /"nonce":"([a-zA-Z0-9]+)"/.exec(skripKontent)
-      return match?.[1]
-    }
-    const nonce = await getNonce()
-    const base = {
-      url: {
-        admin: 'https://thefdownloader.com/wp-admin/admin-ajax.php',
-      },
-    }
-    let data = new FormData()
-    data.append('action', 'facebook_photo_action')
-    data.append('facebook', `facebook_photo_url=${url}`)
-    data.append('nonce', nonce)
-
-    let response = await axios.post(base.url.admin, data, {
-      headers: {
-        ...data.getHeaders(),
-      },
-    })
-
-    let $ = cheerio.load(response.data)
-    let imageUrl = $('.facebook__media img').attr('src')
-
-    return {
-      status: true,
-      creator: "@kelvdra/scraper",
-      imageUrl
-    }
-    } catch (err) {
-    return {
-      status: false,
-      message: err.message
-    };
-  }
- }
-
 const fbVideo = async (u) => {
   try {
     if (!/^https?:\/\/(www\.)?facebook\.com/.test(u)) {
@@ -790,6 +746,5 @@ module.exports = {
   pindl,
   igdl,
   mfdl,
-  fbPhoto,
   fbVideo
 };
