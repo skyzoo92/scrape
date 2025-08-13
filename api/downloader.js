@@ -519,37 +519,78 @@ const pindl = async (url) => {
     }
 };
 
-const igdl = async (url) => {
-    try {
-        let result = {
-            status: true,
-            creator: "@kelvdra/scraper",
-            media: []
-        }
-        const {
-            data
-        } = await axios(`https://www.y2mate.com/mates/analyzeV2/ajax`, {
-            method: "post",
-            data: {
-                k_query: url,
-                k_page: "Instagram",
-                hl: "id",
-                q_auto: 0
-            },
-            headers: {
-                "content-type": "application/x-www-form-urlencoded",
-                "user-agent": "PostmanRuntime/7.32.2"
-            }
-        })
-        await data.links.video.map((video) => result.media.push(video.url))
-        return result
-    } catch (err) {
-        const result = {
-            status: false,
-            message: `Media not found`
-        }
-        return result
+const igd = async (url) => {
+  try {
+    // 1️⃣ Request token verifikasi
+    const verifyRes = await axios.post(
+      "https://snapinsta.to/api/userverify",
+      new URLSearchParams({ url }),
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          "X-Requested-With": "XMLHttpRequest",
+        },
+      }
+    );
+
+    if (!verifyRes.data?.token) {
+      throw new Error("Gagal mendapatkan token");
     }
+
+    const token = verifyRes.data.token;
+
+    // 2️⃣ Request link unduhan
+    const searchRes = await axios.post(
+      "https://snapinsta.to/api/ajaxSearch",
+      new URLSearchParams({
+        q: url,
+        t: "media",
+        v: "v2",
+        lang: "id",
+        cftoken: token,
+      }),
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          "X-Requested-With": "XMLHttpRequest",
+        },
+      }
+    );
+
+    const htmlData = searchRes.data?.data;
+    if (!htmlData) {
+      throw new Error("Gagal mendapatkan data HTML");
+    }
+
+    // 3️⃣ Parsing HTML dengan Cheerio
+    const $ = cheerio.load(htmlData);
+    const media = [];
+
+    $(".download-items").each((_, el) => {
+      const thumb = $(el).find("img").attr("src") || $(el).find("img").attr("data-src");
+      const downloadUrl = $(el).find("a").attr("href");
+      if (downloadUrl) {
+        media.push({
+          thumbnail: thumb,
+          url: downloadUrl,
+        });
+      }
+    });
+
+    // 4️⃣ Return dalam format
+    return {
+      status: true,
+      creator: "@kelvdra/scraper",
+      media
+    };
+  } catch (err) {
+    return {
+      status: false,
+      creator: "@kelvdra/scraper",
+      message: err.message,
+      media: []
+    };
+  }
 }
 
 const mfdl = async (url) => {
