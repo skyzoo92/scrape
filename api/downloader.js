@@ -519,7 +519,7 @@ const pindl = async (url) => {
     }
 };
 
-const igd = async (url) => {
+const igdl = async (url) => {
   try {
     // 1️⃣ Request token verifikasi
     const verifyRes = await axios.post(
