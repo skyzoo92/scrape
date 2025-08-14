@@ -19,9 +19,17 @@ async function askAI(question, model = 'llama-3.3', systemPrompt = null) {
     if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
     const data = await res.json();
 
-    return data.response;
+    return {
+     status: true,
+     creator: "@kelvdra/scraper",
+     results: data.response
+     }
   } catch (err) {
-    console.error('Error:', err.message);
+    return {
+    status: false,
+    creator: "@kelvdra/scraper",
+    result: err
+    }
   }
 }
 
