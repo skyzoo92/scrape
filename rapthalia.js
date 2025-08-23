@@ -6,6 +6,8 @@ const converter = require('./lib/converter.js');
 const webp2mp4 = require('./lib/webp2mp4.js')
 const tools = require("./api/tools.js")
 const ai = require("./api/ai.js")
+const uploadImage = require("./lib/uplodImage.js")
+
 const allFunctions = {
   ...downloader,
   ...searchApi,
