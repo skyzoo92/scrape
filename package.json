@@ -1,6 +1,6 @@
 {
   "name": "@kelvdra/scraper",
-  "version": "1.0.37",
+  "version": "1.0.38",
   "description": "A simple scraper by kelvdra.",
   "main": "rapthalia.js",
   "scripts": {
@@ -36,7 +36,7 @@
     "awesome-phonenumber": "^2.73.0",
     "axios": "^1.11.0",
     "cheerio": "npm:@kelvdra/cheerio",
-    "file-type": "npm:@kelvdra/file-type"
+    "file-type": "npm:@kelvdra/file-type",
     "form-data": "^4.0.0",
     "g-i-s": "^2.1.7",
     "mime-types": "^2.1.35",
