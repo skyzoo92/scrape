@@ -35,11 +35,12 @@
   "dependencies": {
     "awesome-phonenumber": "^2.73.0",
     "axios": "^1.11.0",
-    "cheerio": "@kelvdra/cheerio",
+    "cheerio": "npm:@kelvdra/cheerio",
+    "file-type": "npm:@kelvdra/file-type"
     "form-data": "^4.0.0",
     "g-i-s": "^2.1.7",
     "mime-types": "^2.1.35",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "npm:@kelvdra/node-fetch",
     "path": "^0.12.7",
     "qs": "^6.14.0",
     "yt-search": "^2.13.1"
