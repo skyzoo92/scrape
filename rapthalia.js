@@ -17,6 +17,7 @@ const allFunctions = {
   ...webp2mp4,
   ...tools,
   ...ai,
+  ...uploadImage,
 };
 
 async function list() {
