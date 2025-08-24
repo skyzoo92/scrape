@@ -8,10 +8,10 @@ const fetch = require('node-fetch');
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-        question,
-        model,
-        system_prompt: systemPrompt
-      })
+      question: question,
+      model: model,
+      system_prompt: promt
+    })
   });
 
   const data = await res.json();
