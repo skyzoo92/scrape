@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
- > async function askAI(question, model = 'llama-3.3', systemPrompt = null) {
+ async function askAI(question, model = 'llama-3.3', systemPrompt = null) {
   try {
     const res = await fetch("https://ai-interface.anisaofc.my.id/api/chat", {
       method: "POST",
