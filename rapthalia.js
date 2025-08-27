@@ -7,6 +7,7 @@ const webp2mp4 = require('./lib/webp2mp4.js')
 const tools = require("./api/tools.js")
 const ai = require("./api/ai.js")
 const uploadImage = require("./lib/uploadImage.js")
+const sticker = require("./lib/sticker.js")
 
 const allFunctions = {
   ...downloader,
@@ -18,6 +19,7 @@ const allFunctions = {
   ...tools,
   ...ai,
   ...uploadImage,
+  ...sticker,
 };
 
 async function list() {
