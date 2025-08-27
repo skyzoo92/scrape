@@ -1,6 +1,6 @@
 {
   "name": "@kelvdra/scraper",
-  "version": "1.0.04",
+  "version": "1.0.38",
   "description": "A simple scraper by kelvdra.",
   "main": "rapthalia.js",
   "scripts": {
